@@ -1,6 +1,8 @@
 package com.wangben.shortlink.admin.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.wangben.shortlink.admin.commen.serialize.PhoneDesensitizationSerializer;
 import lombok.Data;
 
 import java.util.Date;
@@ -37,6 +39,7 @@ public class UserDO {
     /**
      * 手机号
      */
+    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**
