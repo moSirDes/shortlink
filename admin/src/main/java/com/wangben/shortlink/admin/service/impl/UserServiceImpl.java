@@ -9,6 +9,8 @@ import com.wangben.shortlink.admin.dao.entity.UserDO;
 import com.wangben.shortlink.admin.dao.mapper.UserMapper;
 import com.wangben.shortlink.admin.dto.resp.UserRespDto;
 import com.wangben.shortlink.admin.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.redisson.api.RBloomFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,10 @@ import org.springframework.stereotype.Service;
  * 用户接口实现曾
  */
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
+
+    private final RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
     @Override
     public UserRespDto getUserByUsername(String username) {
 
@@ -29,5 +34,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         UserRespDto result = new UserRespDto();
         BeanUtils.copyProperties(userDO,result);
         return result;
+    }
+
+    @Override
+    public Boolean hasUsername(String username) {
+        return userRegisterCachePenetrationBloomFilter.contains(username);
     }
 }
