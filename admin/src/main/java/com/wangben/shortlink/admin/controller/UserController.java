@@ -2,7 +2,10 @@ package com.wangben.shortlink.admin.controller;
 
 import com.wangben.shortlink.admin.commen.convention.result.Result;
 import com.wangben.shortlink.admin.commen.convention.result.Results;
+import com.wangben.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.wangben.shortlink.admin.dto.req.UserRegisterReqDto;
+import com.wangben.shortlink.admin.dto.req.UserUpdateReqDTO;
+import com.wangben.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.wangben.shortlink.admin.dto.resp.UserRespDto;
 import com.wangben.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +43,21 @@ public class UserController {
     public Result<Void> register(@RequestBody UserRegisterReqDto requestParam) {
         userService.registerUser(requestParam);
         return Results.success();
+    }
+
+    /**
+     * 注用户信息修改
+     */
+    @PostMapping("/api/shortlink/v1/user/update")
+    public Result<Void> update(@RequestBody UserUpdateReqDTO requestParam) {
+        return Results.success();
+    }
+
+    /**
+     * 用户登录
+     */
+    public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO requestParam) {
+        UserLoginRespDTO result = userService.login(requestParam);
+        return Results.success(result);
     }
 }

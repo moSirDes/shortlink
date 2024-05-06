@@ -2,7 +2,10 @@ package com.wangben.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wangben.shortlink.admin.dao.entity.UserDO;
+import com.wangben.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.wangben.shortlink.admin.dto.req.UserRegisterReqDto;
+import com.wangben.shortlink.admin.dto.req.UserUpdateReqDTO;
+import com.wangben.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.wangben.shortlink.admin.dto.resp.UserRespDto;
 
 public interface UserService extends IService<UserDO> {
@@ -26,4 +29,17 @@ public interface UserService extends IService<UserDO> {
      * @param requestParam
      */
     void registerUser(UserRegisterReqDto requestParam);
+
+    /**
+     * 用户信息修改
+     * @param requestParam
+     */
+    void update(UserUpdateReqDTO requestParam);
+
+    /**
+     * 用户登录
+     * @param requestParam
+     * @return
+     */
+    UserLoginRespDTO login(UserLoginReqDTO requestParam);
 }
